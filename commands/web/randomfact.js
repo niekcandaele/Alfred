@@ -26,7 +26,7 @@ class RandomFact extends commando.Command {
             console.error(error);
           }
           try {
-            message.reply(result.facts.fact[0]);
+            message.channel.send(result.facts.fact[0]);
           } catch (e) {
             message.reply("Unconventional response from API.");
           }

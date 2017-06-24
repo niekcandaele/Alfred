@@ -14,7 +14,7 @@ class RandomJoke extends commando.Command {
 
   async run(message, args) {
     var request = require('request');
-    let url = "http://api.icndb.com/jokes/random"
+    let url = "http://api.icndb.com/jokes/random?escape=javascript"
 
     request(url, function(error, response, body) {
       var json = JSON.parse(body);
