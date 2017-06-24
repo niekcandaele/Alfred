@@ -11,5 +11,6 @@ bot.registry.registerGroup("music", "Music");
 bot.registry.registerGroup("web", "Web");
 bot.registry.registerCommandsIn(__dirname + '/commands');
 
-
 bot.login('MzI0ODQzMDUzOTIxODYxNjM0.DCPmQg.UQhAZevJRxhPSd4-nHWm_72EyuM');
+
+console.log("Alfred is at your service, sir.");

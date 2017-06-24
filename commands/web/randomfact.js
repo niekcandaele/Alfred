@@ -21,14 +21,14 @@ class RandomFact extends commando.Command {
         console.log("Error: ", error);
       }
       if (!error && response.statusCode === 200) {
-        xml2js.parseString(response, function(error, result) {
+        xml2js.parseString(body, function(error, result) {
           if (error) {
             console.error(error);
           }
           try {
             message.reply(result.facts.fact[0])
           } catch (e) {
-            message.reply("Unconventional response from API.")
+            message.reply("Unconventional response from API.");
           }
         })
       }
