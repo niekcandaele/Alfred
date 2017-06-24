@@ -18,7 +18,7 @@ class RandomFact extends commando.Command {
 
     request("http://www.fayd.org/api/fact.xml", function(error, response, body) {
       if (error || response.statusCode === 420) {
-        console.log("Error: ", error);
+        console.log("Error randomfact.js: ", error);
       }
       if (!error && response.statusCode === 200) {
         xml2js.parseString(body, function(error, result) {
@@ -26,7 +26,7 @@ class RandomFact extends commando.Command {
             console.error(error);
           }
           try {
-            message.reply(result.facts.fact[0])
+            message.reply(result.facts.fact[0]);
           } catch (e) {
             message.reply("Unconventional response from API.");
           }
