@@ -29,7 +29,7 @@ class UrbanDictionary extends commando.Command {
             json.list[0].example
             );
         } catch (e) {
-          message.reply("Unconventional response from API.")
+          message.reply("Unconventional response from API. (Word not found?)")
         }
       }
     })
