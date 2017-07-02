@@ -28,6 +28,6 @@ class Play extends commando.Command {
   }
 }
 
-// test
+
 // https://www.youtube.com/results?search_query=test
 module.exports = Play;
