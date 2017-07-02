@@ -1,6 +1,8 @@
 /*jshint esversion:6*/
 
 const commando = require('discord.js-commando');
+var request = require('request');
+var xml2js = require('xml2js');
 
 class RandomFact extends commando.Command {
   constructor(client) {
@@ -13,9 +15,6 @@ class RandomFact extends commando.Command {
   }
 
   async run(message, args) {
-    var request = require('request');
-    var xml2js = require('xml2js');
-
     request("http://www.fayd.org/api/fact.xml", function(error, response, body) {
       if (error || response.statusCode === 420) {
         console.log("Error randomfact.js: ", error);
