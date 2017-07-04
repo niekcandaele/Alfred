@@ -1,6 +1,7 @@
 /*jshint esversion:6*/
 
 const commando = require('discord.js-commando');
+var request = require('request');
 
 class RandomJoke extends commando.Command {
   constructor(client) {
@@ -13,7 +14,6 @@ class RandomJoke extends commando.Command {
   }
 
   async run(message, args) {
-    var request = require('request');
     let url = "http://api.icndb.com/jokes/random?escape=javascript"
 
     request(url, function(error, response, body) {
