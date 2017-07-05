@@ -10,7 +10,7 @@ class LatestResults extends commando.Command {
       name: 'results',
       group: 'csgo',
       memberName: 'results',
-      description: 'Get the latest results from hltv.org. Arguments specify how many matches'
+      description: 'Get the latest results from hltv.org.'
     });
   }
 
