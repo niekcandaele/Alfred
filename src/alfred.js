@@ -24,10 +24,11 @@ const bot = new Commando.Client({
   bot.registry.registerGroup("random", "Random");
   bot.registry.registerGroup("music", "Music");
   bot.registry.registerGroup("web", "Web");
+  bot.registry.registerGroup("csgo", "CSGO");
   bot.registry.registerCommandsIn(__dirname + '/commands');
 
   var Playlist = new playlist.makePlaylist();
-  console.log(Playlist);
+  //console.log(Playlist);
 
   bot.login(token);
   console.log("Alfred is at your service, sir.");
