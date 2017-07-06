@@ -11,13 +11,25 @@ class Role_pubg extends commando.Command {
       aliases: ['pubg'],
       group: 'roles',
       memberName: 'role_pubg',
-      description: 'Sets a users role to pubg'
+      description: 'Sets a users role to pubg. Allows you to see the pubg text channel.'
     });
   }
 
   async run(message, args) {
-    message.member.addRole("324826096224829440");
-    message.reply("Your role has been set!")
+    var roleID = "324826096224829440"; // role ID is different for every server!
+    var myMap = message.member.roles;
+    var isRemoved = false;
+    for (var [key, value] of myMap) {
+      if (key === roleID) {
+        message.member.removeRole(roleID);
+        message.reply("Your role has been removed!");
+        isRemoved = true;
+      }
+    }
+    if (!isRemoved) {
+      message.member.addRole(roleID);
+      message.reply("Your role has been set!")
+    }
   }
 }
 

@@ -1,22 +1,19 @@
 /*jshint esversion:6*/
-
 const commando = require('discord.js-commando');
-const request = require('request');
-const HLTV = require('hltv');
 
-class Role_CSGO extends commando.Command {
+class Role_eso extends commando.Command {
   constructor(client) {
     super(client, {
-      name: 'role_csgo',
-      aliases: ['csgo'],
+      name: 'eso',
+      aliases: ['eso'],
       group: 'roles',
-      memberName: 'role_csgo',
-      description: 'Sets a users role to csgo. Allows you to see the CSGO text channel.'
+      memberName: 'eso',
+      description: 'Sets a users role to eso. Allows you to see the ESO text channel.'
     });
   }
 
   async run(message, args) {
-    var roleID = "254954812603498498"; // role ID is different for every server!
+    var roleID = "303149214387404800"; // role ID is different for every server!
     var myMap = message.member.roles;
     var isRemoved = false;
     for (var [key, value] of myMap) {
@@ -33,4 +30,6 @@ class Role_CSGO extends commando.Command {
   }
 }
 
-module.exports = Role_CSGO;
+
+
+module.exports = Role_eso;
