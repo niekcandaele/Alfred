@@ -28,8 +28,7 @@ const bot = new Commando.Client({
   bot.registry.registerGroup("roles", "Roles");
   bot.registry.registerCommandsIn(__dirname + '/commands');
 
-  var Playlist = new playlist.makePlaylist();
-  //console.log(Playlist);
+
 
   bot.login(token);
   console.log("Alfred is at your service, sir.");
