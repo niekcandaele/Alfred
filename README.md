@@ -17,7 +17,5 @@ Todo:
 - Discord.fm
   - Ability to change channel
   - Stop command
-- hltv commands
-  - Filter by event
 - RSS feeds
   - A way to automatically post game news, server status changes etc to the server.
