@@ -7,7 +7,7 @@ const HLTV = require('hltv');
 class Role_pubg extends commando.Command {
   constructor(client) {
     super(client, {
-      name: 'role_pubg',
+      name: 'pubg',
       aliases: ['pubg'],
       group: 'roles',
       memberName: 'role_pubg',

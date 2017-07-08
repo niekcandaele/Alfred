@@ -7,7 +7,7 @@ const HLTV = require('hltv');
 class Role_CSGO extends commando.Command {
   constructor(client) {
     super(client, {
-      name: 'role_csgo',
+      name: 'csgo',
       aliases: ['csgo'],
       group: 'roles',
       memberName: 'role_csgo',
