@@ -12,9 +12,7 @@ class DiscordFM extends commando.Command {
       memberName: 'discordfm',
       description: 'Play something from discord.fm.'
     });
-
   }
-
 
   async run(message, args) {
     var voiceChannel = message.member.voiceChannel;
@@ -36,8 +34,10 @@ class DiscordFM extends commando.Command {
       channels.set(11, "https://temp.discord.fm/libraries/rock-n-roll/json");
       channels.set(12, "https://temp.discord.fm/libraries/coffee-house-jazz/json");
     }
+    fillMap();
 
-    if (args == "") {      message.reply("Pick a station to play ya dingus!");
+    if (args == "") {
+      message.reply("*** put help message here ***!");
       return;
     }
     if (args == 'stations') {
@@ -56,21 +56,15 @@ class DiscordFM extends commando.Command {
       } else {
         voiceChannel.join();
       }
-      fillMap();
       var station = channels.get(parseInt(args, 10));
       request(station, function(error, response, body) {
-        var data = JSON.parse(body);
+        var videos = JSON.parse(body);
         if (error) {
           console.log("Error discordfm.js: " + error);
           message.reply("Error! Wrong arguments?");
         }
 
-        var videos = new Map();
-        for (var i = 0; i < data.length; i++) {
-          videos.set(i, data[i].identifier);
-        } // fill videos
-
-        var amountOfSongs = videos.size;
+        var amountOfSongs = videos.length;
         var connection = voiceChannel.connection;
 
         function getRandomSong() {
@@ -79,9 +73,10 @@ class DiscordFM extends commando.Command {
         }
 
         function playSong(videoId) {
-          var stream = ytdl("https://www.youtube.com/watch?v=" + videos.get(videoId), {
+          var stream = ytdl("https://www.youtube.com/watch?v=" + videos[videoId].identifier, {
             filter: 'audioonly'
           });
+          client.user.setGame(videos[videoId].title);
           const dispatcher = connection.playStream(stream);
           dispatcher.on('end', function() {
             if (playing) {

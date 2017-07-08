@@ -1,8 +1,6 @@
-
 /*jshint esversion:6*/
 const fs = require('fs');
 const Commando = require('discord.js-commando');
-const playlist = require('./playlist')
 
 
 // read config file
@@ -16,9 +14,9 @@ fs.readFile('config.json', 'utf8', function(err, data) {
   var token = data.token;
   var ytApiKey = data.ytapi;
 
-const bot = new Commando.Client({
-  owner: owner
-});
+  const bot = new Commando.Client({
+    owner: owner
+  });
 
   bot.registry.registerDefaults();
   bot.registry.registerGroup("random", "Random");
@@ -27,6 +25,20 @@ const bot = new Commando.Client({
   bot.registry.registerGroup("csgo", "CSGO");
   bot.registry.registerGroup("roles", "Roles");
   bot.registry.registerCommandsIn(__dirname + '/commands');
+
+  bot.on('guildMemberAdd', member => {
+    member.createDM().then(function(value) {
+      value.send(`Welcome to Catalysm's chillspot, ${member}! \n` +
+                  "To see the game channels, set your role(s) using the relevant commands \n" +
+                  "!csgo, !pubg, !eso \n" +
+                  "type !help to see what I can do for you!");
+    }, function(reason) {
+      console.log("rejected: " + reason);
+    });
+
+    //
+  });
+
 
 
 
