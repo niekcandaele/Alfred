@@ -1,6 +1,6 @@
 # Alfred
 
-[logo]: https://github.com/niekcandaele/Alfred/logo.png "Alfred logo"
+[logo]: ./logo.png "Alfred logo"
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/niekcandaele/Alfred.svg)](https://greenkeeper.io/)
 
@@ -18,8 +18,6 @@ To run this bot on your own server:
 
 Todo:
 
-- Discord.fm
-  - Ability to change channel
-  - Stop command
+
 - RSS feeds
   - A way to automatically post game news, server status changes etc to the server.

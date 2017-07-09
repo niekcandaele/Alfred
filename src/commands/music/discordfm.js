@@ -15,6 +15,7 @@ class DiscordFM extends commando.Command {
   }
 
   async run(message, args) {
+    const client = this.client;
     var playing;
     var dispatcher;
     var voiceChannel = message.member.voiceChannel;
@@ -25,9 +26,14 @@ class DiscordFM extends commando.Command {
       return;
     }
     if (args == "stop") {
-      playing = false;
-      voiceChannel.leave();
-      return message.reply("Stopping playback!");
+      try {
+        playing = false;
+        voiceChannel.leave();
+        return message.reply("Stopping playback!");
+      } catch (e) {
+        console.log("Error d.fm : " + e);
+      }
+
     }
     if (args == "stations") {
       var stations = "```" + "\n" +
@@ -88,9 +94,11 @@ class DiscordFM extends commando.Command {
           var stream = ytdl("https://www.youtube.com/watch?v=" + videos[videoId].identifier, {
             filter: 'audioonly'
           });
-          //this.client.user.setGame(videos[videoId].title
           var dispatcher = voiceChannel.connection.playStream(stream);
-          message.channel.send('Now playing: ' + videos[videoId].title);
+          var spamChannelID = "283272868291411968";
+          client.user.setGame(videos[videoId].title);
+          client.channels.get(spamChannelID).send('Now playing: ' + videos[videoId].title);
+          //message.channel.send('Now playing: ' + videos[videoId].title);
           dispatcher.on('end', function() {
             if (dispatcher.time / 100 >= videos[videoId].length) {
               //console.log("Dispatcher time: " + dispatcher.time);
