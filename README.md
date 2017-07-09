@@ -1,7 +1,7 @@
 # Alfred
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/niekcandaele/Alfred.svg)](https://greenkeeper.io/)
-A discord bot
+
 
 A little personal project of mine to get more proficient in javascript. This bot is made for my personal server so a lot of the implementations and functions will be very specific!
 
