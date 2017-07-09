@@ -15,20 +15,19 @@ class DiscordFM extends commando.Command {
   }
 
   async run(message, args) {
-    console.log("Args: " + args);
+    var playing;
+    var dispatcher;
     var voiceChannel = message.member.voiceChannel;
     var channels = new Map();
-    var playing = true;
 
     if (args == "") {
       message.reply("*** put help message here ***!");
       return;
     }
     if (args == "stop") {
-      voiceChannel.connection.dispatcher.pause();
-      voiceChannel.leave();
       playing = false;
-      return;
+      voiceChannel.leave();
+      return message.reply("Stopping playback!");
     }
     if (args == "stations") {
       var stations = "```" + "\n" +
@@ -39,8 +38,8 @@ class DiscordFM extends commando.Command {
         "```";
       message.reply(stations);
       return;
-    } else {
-
+    }
+    if (!isNaN(args)) {
       function fillMap(map) {
         // No decent API, so let's hope these links don't break...
         channels.set(1, "https://temp.discord.fm/libraries/electro-hub/json");
@@ -63,6 +62,11 @@ class DiscordFM extends commando.Command {
       } else {
         voiceChannel.join();
       }
+      if (voiceChannel.connection.dispatcher != null) {
+        if (voiceChannel.connection.dispatcher.time > 0) {
+          voiceChannel.connection.dispatcher.end();
+        }
+      }
       var station = channels.get(parseInt(args, 10));
       request(station, function(error, response, body) {
         var videos = JSON.parse(body);
@@ -72,7 +76,6 @@ class DiscordFM extends commando.Command {
         }
 
         var amountOfSongs = videos.length;
-        var connection = voiceChannel.connection;
 
         function getRandomSong() {
           var randomNumber = Math.floor(Math.random() * amountOfSongs);
@@ -80,14 +83,22 @@ class DiscordFM extends commando.Command {
         }
 
         function playSong(videoId) {
+          console.log("DFM - Now playing : " + videos[videoId].title);
+          playing = true;
           var stream = ytdl("https://www.youtube.com/watch?v=" + videos[videoId].identifier, {
             filter: 'audioonly'
           });
-          //this.client.user.setGame(videos[videoId].title);
-          var dispatcher = connection.playStream(stream);
+          //this.client.user.setGame(videos[videoId].title
+          var dispatcher = voiceChannel.connection.playStream(stream);
+          message.channel.send('Now playing: ' + videos[videoId].title);
           dispatcher.on('end', function() {
-            if (playing) {
-              playSong(getRandomSong());
+            if (dispatcher.time / 100 >= videos[videoId].length) {
+              //console.log("Dispatcher time: " + dispatcher.time);
+              //console.log("Video length: " + videos[videoId].length);
+              var randomN = getRandomSong();
+              if (videos[randomN].service == "YouTubeVideo") {
+                playSong(randomN);
+              }
             }
           })
         }

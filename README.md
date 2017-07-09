@@ -1,5 +1,7 @@
 # Alfred
 
+[logo]: https://github.com/niekcandaele/Alfred/logo.png "Alfred logo"
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/niekcandaele/Alfred.svg)](https://greenkeeper.io/)
 
 
