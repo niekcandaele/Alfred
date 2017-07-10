@@ -23,7 +23,7 @@ fs.readFile('config.json', 'utf8', function(err, data) {
   bot.registry.registerGroup("music", "Music");
   bot.registry.registerGroup("web", "Web");
   bot.registry.registerGroup("csgo", "CSGO");
-  bot.registry.registerGroup("roles", "Roles");
+  bot.registry.registerGroup("administration", "Administration");
   bot.registry.registerCommandsIn(__dirname + '/commands');
 
   bot.on('guildMemberAdd', member => {

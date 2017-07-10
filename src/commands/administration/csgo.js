@@ -2,14 +2,13 @@
 
 const commando = require('discord.js-commando');
 const request = require('request');
-const HLTV = require('hltv');
 
 class Role_CSGO extends commando.Command {
   constructor(client) {
     super(client, {
-      name: 'csgo',
+      name: 'role_csgo',
       aliases: ['csgo'],
-      group: 'roles',
+      group: 'administration',
       memberName: 'role_csgo',
       description: 'Sets a users role to csgo. Allows you to see the CSGO text channel.'
     });

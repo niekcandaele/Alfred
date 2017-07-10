@@ -4,9 +4,9 @@ const commando = require('discord.js-commando');
 class Role_eso extends commando.Command {
   constructor(client) {
     super(client, {
-      name: 'eso',
+      name: 'role_eso',
       aliases: ['eso'],
-      group: 'roles',
+      group: 'administration',
       memberName: 'eso',
       description: 'Sets a users role to eso. Allows you to see the ESO text channel.'
     });

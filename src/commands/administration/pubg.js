@@ -7,9 +7,9 @@ const HLTV = require('hltv');
 class Role_pubg extends commando.Command {
   constructor(client) {
     super(client, {
-      name: 'pubg',
+      name: 'role_pubg',
       aliases: ['pubg'],
-      group: 'roles',
+      group: 'administration',
       memberName: 'role_pubg',
       description: 'Sets a users role to pubg. Allows you to see the pubg text channel.'
     });
