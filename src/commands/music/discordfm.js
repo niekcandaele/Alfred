@@ -22,13 +22,16 @@ class DiscordFM extends commando.Command {
     var channels = new Map();
 
     if (args == "") {
-      message.reply("*** put help message here ***!");
+      message.reply("Use !dfm stations to get a list of stations! \n" +
+                    "use !dfm <number> to start playing a channel \n" +
+                    "To stop playback, use !dfm stop");
       return;
     }
     if (args == "stop") {
       try {
         playing = false;
         voiceChannel.leave();
+        client.user.setGame(" ");
         return message.reply("Stopping playback!");
       } catch (e) {
         console.log("Error d.fm : " + e);
@@ -46,6 +49,7 @@ class DiscordFM extends commando.Command {
       return;
     }
     if (!isNaN(args)) {
+      // Make fillmap pesistent? Channels never change anyways
       function fillMap(map) {
         // No decent API, so let's hope these links don't break...
         channels.set(1, "https://temp.discord.fm/libraries/electro-hub/json");
@@ -64,18 +68,20 @@ class DiscordFM extends commando.Command {
       fillMap();
 
       if (!voiceChannel) {
-        return message.reply('You are not in a voice channel.');
+        return message.reply('You are not in a voice channel YA DINGUS.');
       } else {
         voiceChannel.join();
       }
       if (voiceChannel.connection.dispatcher != null) {
         if (voiceChannel.connection.dispatcher.time > 0) {
+          // First check if exists then check if time > 0? Not needed? TEST PLOX
           voiceChannel.connection.dispatcher.end();
         }
       }
       var station = channels.get(parseInt(args, 10));
       request(station, function(error, response, body) {
         var videos = JSON.parse(body);
+        // Instead of checking if video is YT or something else (later in file), filter JSON here to only YT videos?
         if (error) {
           console.log("Error discordfm.js: " + error);
           message.reply("Error! Wrong arguments?");
@@ -88,6 +94,9 @@ class DiscordFM extends commando.Command {
           return randomNumber;
         }
 
+        // Split up next function?
+        // Playing function and something that controls wether or not to play next something
+        // ^- Possible fix to voice packets sent to null
         function playSong(videoId) {
           console.log("DFM - Now playing : " + videos[videoId].title);
           playing = true;
@@ -95,7 +104,7 @@ class DiscordFM extends commando.Command {
             filter: 'audioonly'
           });
           var dispatcher = voiceChannel.connection.playStream(stream);
-          var spamChannelID = "283272868291411968";
+          var spamChannelID = "283272868291411968"; // Add this to config, needed for other stuff. Also make new channel for mod msgs etc
           client.user.setGame(videos[videoId].title);
           client.channels.get(spamChannelID).send('Now playing: ' + videos[videoId].title);
           //message.channel.send('Now playing: ' + videos[videoId].title);
