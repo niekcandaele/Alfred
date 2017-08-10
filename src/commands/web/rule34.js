@@ -26,7 +26,7 @@ class Rule34 extends commando.Command {
         try {
           var amountOfPosts = result.posts.post.length;
           var randomPost = Math.floor(Math.random() * amountOfPosts);
-          var imageLink = "http://www" + result.posts.post[randomPost].$.file_url.substr(5);
+          var imageLink = "http://www" + result.posts.post[randomPost].$.file_url.substr(7);
           message.channel.send(imageLink);
       //    Logger(message.channel.user.username, message.guild, message + args);
         } catch (e) {

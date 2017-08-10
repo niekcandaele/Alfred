@@ -1,7 +1,12 @@
 /*jshint esversion:6*/
-const fs = require('fs');
 const Commando = require('discord.js-commando');
+const PersistentCollection = require("djs-collection-persistent");
+const guildSettings = require('./guildConfig.js');
+const fs = require("fs");
 
+
+var owner
+var token
 
 // read config file
 fs.readFile('config.json', 'utf8', function(err, data) {
@@ -10,14 +15,12 @@ fs.readFile('config.json', 'utf8', function(err, data) {
     return console.log(err);
   }
   data = JSON.parse(data);
-  var owner = data.owner;
-  var token = data.token;
-  var ytApiKey = data.ytapi;
+  owner = data.owner;
+  token = data.token;
+  bot.login(token);
+});
 
-  const bot = new Commando.Client({
-    owner: owner
-  });
-
+function registerCmds() {
   bot.registry.registerDefaults();
   bot.registry.registerGroup("random", "Random");
   bot.registry.registerGroup("music", "Music");
@@ -25,23 +28,28 @@ fs.readFile('config.json', 'utf8', function(err, data) {
   bot.registry.registerGroup("csgo", "CSGO");
   bot.registry.registerGroup("administration", "Administration");
   bot.registry.registerCommandsIn(__dirname + '/commands');
+}
 
-  bot.on('guildMemberAdd', member => {
-    member.createDM().then(function(value) {
-      value.send(`Welcome to Catalysm's chillspot, ${member}! \n` +
-                  "To see the game channels, set your role(s) using the relevant commands \n" +
-                  "!csgo, !pubg, !eso \n" +
-                  "type !help to see what I can do for you!");
-    }, function(reason) {
-      console.log("rejected: " + reason);
-    });
+const defaultSettings = {
+  prefix: "$",
+  modLogChannel: "mod-log",
+  modRole: "Moderator",
+  adminRole: "Administrator",
+}
+const bot = new Commando.Client({
+  owner: owner
+});
 
-    //
-  });
+bot.commandPrefix = defaultSettings.prefix;
 
+bot.on("guildCreate", guild => {
+  guildSettings.set(guild.id, defaultSettings);
+});
+bot.on("guildDelete", guild => {
+  guildSettings.delete(guild.id);
+});
 
-
-
-  bot.login(token);
+bot.on("ready", () => {
+  registerCmds();
   console.log("Alfred is at your service, sir.");
 });
