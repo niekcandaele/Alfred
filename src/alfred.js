@@ -22,7 +22,6 @@ fs.readFile('config.json', 'utf8', function(err, data) {
 
 function registerCmds() {
   bot.registry.registerDefaults();
-  bot.registry.registerGroup("random", "Random");
   bot.registry.registerGroup("music", "Music");
   bot.registry.registerGroup("web", "Web");
   bot.registry.registerGroup("csgo", "CSGO");
