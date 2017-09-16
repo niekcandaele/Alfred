@@ -32,9 +32,7 @@ function registerCmds() {
 
 const defaultSettings = {
   prefix: "$",
-  modLogChannel: "mod-log",
-  modRole: "Moderator",
-  adminRole: "Administrator",
+  musicVolume: 1
 }
 const bot = new Commando.Client({
   owner: owner
